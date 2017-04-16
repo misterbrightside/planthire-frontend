@@ -1,0 +1,17 @@
+.UserTestimonals {
+  background-image: url('./Crane.jpg');
+  background-size: cover;
+  min-height: 500px;
+  color: white;
+}
+
+.UserTestimonals-container {
+  padding: 5%;
+  text-align: center;
+}
+
+.UserTestimonals-container > h1 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.55rem;
+}

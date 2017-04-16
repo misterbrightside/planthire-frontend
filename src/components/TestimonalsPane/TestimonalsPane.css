@@ -1,0 +1,50 @@
+.Testimonals-pane {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 300px;
+  justify-content: space-between;
+}
+
+.Testimonals-pane-arrow {
+  font-size: 2.5rem;
+}
+
+.Testimonal-pane-arrow-svg {
+  width: 20px;
+  padding: 10px;
+}
+
+.Testimonal-person {
+  font-weight: 900;
+}
+
+.Testimonal-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  min-height: 150px;
+}
+
+.Testimonals-pane-circle-display {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.Testimonals-pane-circle-display > span.inactive {
+  padding: 6px;
+  background: rgba(0, 0, 0, 0);
+  border: 2px solid white;
+  margin: 0 5px;
+  border-radius: 50%;
+}
+
+.Testimonals-pane-circle-display > span.active {
+  padding: 8px;
+  background: white;
+  margin: 0 5px;
+  border-radius: 50%;
+}

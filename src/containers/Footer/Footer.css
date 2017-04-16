@@ -1,0 +1,74 @@
+.Footer {
+  background: #303030;
+  background-size: contain;
+  position: relative;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.arrow-background {
+  background-image: url('./arrow.svg');
+  background-repeat: space;
+  width: 200%;
+  position: absolute;
+  height: 50%;
+  z-index: -200;
+  transform: rotate(120deg);
+  background-size: 20%;
+}
+
+.FooterSection {
+  padding: 5% 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-size: contain;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 100;
+  text-align: center;
+}
+
+.FooterSection > h3 {
+  margin: 0;
+  color: white;
+}
+
+.ContactUs address {
+  font-style: normal;
+  margin-bottom: 10px;
+}
+
+.ContactUs a {
+  text-transform: lowercase;
+}
+
+.FooterSection a {
+  text-decoration: none;
+  color: white;
+}
+
+.Footer-subfooter {
+  padding: 2.5%;
+  font-size: .85rem;
+  background: #202021;
+  color: white;
+  font-weight: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Footer-subfooter > h4 {
+  line-height: 0;
+  margin: 1rem;
+  font-size: 1.2rem;
+}
+
+.Footer-beakon-mark > a {
+  color: #2ea3f2;
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: lowercase;
+}

@@ -1,0 +1,44 @@
+.FeatureTiles {
+  background: white;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Tile {
+  width: 100%;
+  height: 100%;
+}
+
+.Tile > a {
+  text-decoration: none;
+  color: black;
+}
+
+.FeatureTiles-tile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin: 5%;
+  height: 80px;
+  padding: 20px;
+  width: 80%;
+  background: #facc00;
+  font-size: 2rem;
+  text-transform: uppercase;
+  line-height: 1.5rem;
+  letter-spacing: 1px;
+  font-family: 'Passion One', cursive;
+  text-align: right;
+  background-size: cover;
+  background-position: 10%;
+  background-size: 30%;
+  background-repeat: no-repeat;
+}
+
+.FeatureTiles-text {
+  flex: 0 0 10%;
+  text-decoration: none;
+}
+

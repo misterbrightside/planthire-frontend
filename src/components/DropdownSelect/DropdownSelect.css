@@ -1,0 +1,64 @@
+.DropdownSelect {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.Select-control {
+  width: 45vh;
+  padding: 5px;
+  background: rgba(255, 255, 255, .35);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  border: none;
+  color: white;
+}
+
+.Select-placeholder, .Select--single > .Select-control .Select-value {
+  line-height: 45px;
+}
+
+.Select-menu-outer, .Select-option, .is-open > .Select-control {
+  background: rgba(255, 255, 255, 1);
+  transition: .5s background;
+}
+
+.has-value.Select--single > .Select-control .Select-value .Select-value-label {
+  color: white;
+}
+
+.has-value.is-focused.Select--single > .Select-control .Select-value .Select-value-label {
+  color: white;
+}
+
+.has-value.is-open.Select--single > .Select-control .Select-value .Select-value-label {
+  color: black;
+  transition: .5s color;
+}
+
+.DropdownSelect-label {
+  text-align: center;
+  margin: 5px 0;
+  font-weight: 100;
+}
+
+.Select--multi .Select-value {
+    background-color: #ebf5ff;
+    background-color: rgba(250, 204, 0, 0.47);
+    border-radius: 15px;
+    border: 1px solid #c2e0ff;
+    border: 1px solid rgb(250, 204, 0);
+    color: #191919;
+    display: inline-block;
+    font-size: .65rem;
+    line-height: 1.4;
+    margin-left: 5px;
+    margin-top: 5px;
+    vertical-align: top;
+}

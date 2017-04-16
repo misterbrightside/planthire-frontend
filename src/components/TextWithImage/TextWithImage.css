@@ -1,0 +1,42 @@
+.TextWithImage > h2 {
+  text-transform: uppercase;
+  font-family: 'Passion One', cursive;
+  font-size: 1.25rem;
+  text-align: center;
+  color: #facc00;
+}
+
+.TextWithImage-header {
+  grid-area: header;
+}
+
+.TextWithImage-text {
+  grid-area: text;
+}
+
+.TextWithImage-image {
+  width: 100%;
+  fill: #facc00;
+  grid-area: image;
+}
+
+.TextWithImage {
+  display: grid;
+  margin: 7.5%;
+  grid-gap: 5%;
+}
+
+.TextWithImage.left {
+  grid-template-columns: 30% 65%;
+  grid-template-areas: 
+    "header header"
+    "image text";
+}
+
+.TextWithImage.right {
+  grid-template-columns: 65% 30%;
+  grid-template-areas: 
+    "header header"
+    "text image"
+    "text image";
+}

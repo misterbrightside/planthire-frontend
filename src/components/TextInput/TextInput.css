@@ -1,0 +1,28 @@
+.TextInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.TextInput > input {
+  width: 44.9025vh;
+  padding: 13px 0px;
+  background: rgba(255, 255, 255, .35);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  border: none;
+  color: white;
+}
+
+.TextInput > input:focus {
+  background: white;
+  color: black;
+  transition: 0.6s background;
+}
+
+.TextInput > label {
+  text-align: center;
+  margin: 5px 0;
+  font-weight: 100;
+}

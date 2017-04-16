@@ -1,0 +1,60 @@
+.Button > button {
+  border: none;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.5rem;
+  background: #facc00;
+  background-image: url('./arrow.svg'), url('./arrow.svg');
+  background-size: 25px;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 87%, 98%;
+  padding-right: 60px;
+  padding-left: 10px;
+  z-index: 1;
+}
+
+.Button > button {
+    border: none;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    background: #facc00;
+    background-image: url('./arrow.svg'), url('./arrow.svg');
+    background-size: 25px;
+    background-repeat: no-repeat, no-repeat;
+    background-position: 85%, 98%;
+    padding-right: 45px;
+    padding-left: 7px;
+    line-height: 30px;
+    transition: background .6s;
+}
+
+.Button.disabled > button {
+    background: grey;
+    color: darkgrey;
+    cursor: not-allowed;
+    background-image: url('./arrow.svg'), url('./arrow.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: 85%, 98%;    
+    background-size: 25px;
+}
+
+.Button.small.right > button {
+    background-image: url('./arrow.svg'), url('./arrow.svg');
+    background-size: 25px;
+    background-repeat: no-repeat, no-repeat;
+    background-position: 65%, 97%;
+    padding-right: 45px;
+    padding-left: 7px;
+}
+
+.Button.small.left > button {
+    background-image: url('./arrow-left.svg'), url('./arrow-left.svg');
+    background-size: 25px;
+    background-repeat: no-repeat, no-repeat;
+    background-position: 3%, 33%;
+    padding-left: 50px;
+    padding-right: 7px;
+}

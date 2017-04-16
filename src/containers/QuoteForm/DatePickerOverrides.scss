@@ -1,0 +1,9 @@
+$react-dates-color-primary: #facc00;
+$react-dates-color-secondary: lighten($react-dates-color-primary, 10%);
+$react-dates-color-highlighted: $react-dates-color-secondary;
+$react-dates-color-primary-shade-1: $react-dates-color-primary;
+$react-dates-color-primary-shade-2: $react-dates-color-secondary;
+$react-dates-color-primary-shade-3: $react-dates-color-secondary;
+$react-dates-color-primary-shade-4: lighten($react-dates-color-primary, 40%);
+@import '~react-dates/css/variables.scss';
+@import '~react-dates/css/styles.scss';

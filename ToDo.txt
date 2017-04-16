@@ -1,0 +1,22 @@
+- Polyfill for datalist element, which doesn't work in html5.
+- On select hire categories, load in async for subcats and plant name/services.
+- validation of:
+  - email
+  - phone
+
+- submit details to server for new company
+  - register user
+    - check if doesn't exist
+      - if it does, send back error.
+    - generate password?
+    - entry to database
+  - send welcome email
+  - redirect to dashboard
+
+- dashboard
+  - list of open quotations that match preferences
+
+- on submit hire request
+  - match all companies that fit descript
+  - email them all. 
+- change proper fields to text input with validation

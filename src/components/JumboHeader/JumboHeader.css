@@ -1,0 +1,11 @@
+.JumboHeader {
+  background: #facc00;
+  margin: 20px;
+  padding: 5px 5%;
+}
+
+.JumboHeader > h1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.5em;
+}
