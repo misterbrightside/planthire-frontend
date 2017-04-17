@@ -1,4 +1,5 @@
 export const SELECT_DATES = 'SELECT_DATES';
+export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_SUBCATEGORY = 'SET_SUBCATEGORY';
 export const SET_PLANTNAME = 'SET_PLANTNAME';
@@ -7,6 +8,24 @@ export const SET_TRANSPORT_METHOD = 'SET_TRANSPORT_METHOD';
 export const SET_EMAIL = 'SET_EMAIL';
 export const SET_PHONE = 'SET_PHONE';
 export const SET_NAME = 'SET_NAME';
+
+const API_BASE = 'http://localhost:8080/api';
+
+export function getCategoryInfoAsync() {
+  return dispatch => {
+    return fetch(`${API_BASE}/categories?nested=false`)
+      .then(res => res.json())
+      .then(json => json.map(category => ({ value: category.id, label: category.category })))
+      .then(categories => dispatch(setCategories(categories)));
+  }
+}
+
+export function setCategories(categories) {
+  return {
+    type: SET_CATEGORY_DATA,
+    categories
+  }
+}
 
 export function selectDates(startDate, endDate) {
   return {

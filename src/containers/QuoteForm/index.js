@@ -15,7 +15,8 @@ import {
   setTransportMode,
   setEmail,
   setName,
-  setPhone
+  setPhone,
+  getCategoryInfoAsync
 } from '../../actions/QuoteFormActions';
 
 import { DateRangePicker } from 'react-dates';
@@ -29,6 +30,11 @@ class QuoteForm extends Component {
     this.state = {
       focusedInput: null,
     }
+  }
+
+  componentDidMount() {
+    const { getCategoryInfo } = this.props;
+    getCategoryInfo();
   }
 
   getRadioGroup() {
@@ -54,14 +60,14 @@ class QuoteForm extends Component {
   getSteps() {
     const { 
       onSetCategory, onSetSubcategory, onSetPlantname,
-      category, subcategory, plantName  
+      category, subcategory, plantName, categories 
     } = this.props;
     const step1 = (
       <div className={'StepContainer'}>
         <DropdownSelect
           labelText={'What are you looking for?'}
           listId={'lookingFor'}
-          options={COUNTIES}
+          options={categories}
           onSelect={onSetCategory}
           value={category}
         />
@@ -166,7 +172,7 @@ const mapStateToProps = (state) => {
   const { 
     activeStep, category, subcategory, 
     plantName, county, transportMethod,
-    dateRange, email, phone, name
+    dateRange, email, phone, name, categories
   } = state.QuoteForm;
 
   return {
@@ -175,6 +181,7 @@ const mapStateToProps = (state) => {
     stepTwoValid: dateRange.startDate && dateRange.endDate && county,
     stepThreeValid: email && phone && name,
     category,
+    categories,
     subcategory,
     plantName,
     county,
@@ -189,6 +196,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getCategoryInfo: () => dispatch(getCategoryInfoAsync()),
     onDateSelect: ({ startDate, endDate }) => dispatch(selectDates(startDate, endDate)),
     onSetCategory: ({ value }) => dispatch(setCategory(value)),
     onSetSubcategory: ({ value }) => dispatch(setSubcategory(value)),
