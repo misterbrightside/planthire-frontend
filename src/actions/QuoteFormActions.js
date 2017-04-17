@@ -2,6 +2,7 @@ export const SELECT_DATES = 'SELECT_DATES';
 export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_SUBCATEGORY = 'SET_SUBCATEGORY';
+export const SET_SUBCATEGORY_DATA = 'SET_SUBCATEGORY_DATA';
 export const SET_PLANTNAME = 'SET_PLANTNAME';
 export const SET_COUNTY = 'SET_COUNTY';
 export const SET_TRANSPORT_METHOD = 'SET_TRANSPORT_METHOD';
@@ -17,13 +18,20 @@ export function getCategoryInfoAsync() {
       .then(res => res.json())
       .then(json => json.map(category => ({ value: category.id, label: category.category })))
       .then(categories => dispatch(setCategories(categories)));
-  }
+  };
 }
 
 export function setCategories(categories) {
   return {
     type: SET_CATEGORY_DATA,
     categories
+  }
+}
+
+export function setSubcategories(subcategories) {
+  return {
+    type: SET_SUBCATEGORY_DATA,
+    subcategories
   }
 }
 
@@ -39,6 +47,18 @@ export function setCategory(category) {
     type: SET_CATEGORY,
     category
   }
+}
+
+export function setCategoryAndFetchSubcategoryInfo(id) {
+  return dispatch => {
+    dispatch(setCategory(id));
+    return fetch(`${API_BASE}/categories/${id}`)
+      .then(res => res.json())
+      .then(json => {
+        const subcategories = json.subcategories.map(subcategory => ({ value: subcategory.id, label: subcategory.subcategory }));
+        dispatch(setSubcategories(subcategories));
+      });
+  };
 }
 
 export function setSubcategory(subcategory) {
