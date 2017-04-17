@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import {
   selectDates,
   setCategoryAndFetchSubcategoryInfo,
-  setSubcategory,
+  setSubcategoryAndFetchServiceInfo,
   setPlantName,
   setCounty,
   setTransportMode,
@@ -61,7 +61,7 @@ class QuoteForm extends Component {
     const { 
       onSetCategory, onSetSubcategory, onSetPlantname,
       category, subcategory, plantName,
-      categories, subcategories
+      categories, subcategories, services
     } = this.props;
     const step1 = (
       <div className={'StepContainer'}>
@@ -82,7 +82,7 @@ class QuoteForm extends Component {
         <DropdownSelect
           labelText={'Plant name/service'}
           listId={'requiredFor'}
-          options={COUNTIES}
+          options={services}
           value={plantName}
           onSelect={onSetPlantname}
         />
@@ -174,7 +174,7 @@ const mapStateToProps = (state) => {
     activeStep, category, subcategory, 
     plantName, county, transportMethod,
     dateRange, email, phone, name,
-    categories, subcategories
+    categories, subcategories, services
   } = state.QuoteForm;
 
   return {
@@ -187,6 +187,7 @@ const mapStateToProps = (state) => {
     subcategory,
     subcategories,
     plantName,
+    services,
     county,
     transportMethod,
     startDate: dateRange.startDate,
@@ -202,7 +203,7 @@ const mapDispatchToProps = (dispatch) => {
     getCategoryInfo: () => dispatch(getCategoryInfoAsync()),
     onDateSelect: ({ startDate, endDate }) => dispatch(selectDates(startDate, endDate)),
     onSetCategory: ({ value }) => dispatch(setCategoryAndFetchSubcategoryInfo(value)),
-    onSetSubcategory: ({ value }) => dispatch(setSubcategory(value)),
+    onSetSubcategory: ({ value }) => dispatch(setSubcategoryAndFetchServiceInfo(value)),
     onSetPlantname: ({ value }) => dispatch(setPlantName(value)),
     onSetCounty: ({ value }) => dispatch(setCounty(value)),
     onSetTransportMethod: value => dispatch(setTransportMode(value)),

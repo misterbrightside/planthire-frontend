@@ -10,7 +10,8 @@ import {
   SET_PHONE,
   SET_NAME,
   SET_CATEGORY_DATA,
-  SET_SUBCATEGORY_DATA
+  SET_SUBCATEGORY_DATA,
+  SET_SERVICES_DATA
 } from '../actions/QuoteFormActions';
 
 function dateRange(state = { startDate: null, endDate: null}, action) {
@@ -35,6 +36,15 @@ function subcategories(state = [], action) {
   switch(action.type) {
     case SET_SUBCATEGORY_DATA:
       return action.subcategories;
+    default:
+      return state;
+  }
+}
+
+function services(state = [], action) {
+  switch(action.type) {
+    case SET_SERVICES_DATA:
+      return action.services;
     default:
       return state;
   }
@@ -119,6 +129,7 @@ const OrderForm = combineReducers({
   subcategory,
   subcategories,
   plantName,
+  services,
   county,
   transportMethod,
   email,
