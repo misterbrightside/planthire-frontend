@@ -1,4 +1,7 @@
-import { getCategoryInfoAsync } from './api';
+import {
+  getCategoryInfoAsync,
+  getLocationInfoAsync
+} from './api';
 
 export const COMPANY_REGISTRATION_COMPANY_NAME = 'COMPANY_REGISTRATION_COMPANY_NAME';
 export const COMPANY_REGISTRATION_CORRESPONDENCE_NAME = 'COMPANY_REGISTRATION_CORRESPONDENCE_NAME';
@@ -10,6 +13,7 @@ export const COMPANY_REGISTRATION_SELECTED_CATEGORIES = 'COMPANY_REGISTRATION_SE
 export const COMPANY_REGISTRATION_SELECTED_SUBCATEGORIES = 'COMPANY_REGISTRATION_SELECTED_SUBCATEGORIES';
 export const COMPANY_REGISTRATION_SELECTED_SERVICES = 'COMPANY_REGISTRATION_SELECTED_SERVICES';
 export const COMPANY_REGISTRATION_CATEGORY_VALUES = 'COMPANY_REGISTRATION_CATEGORY_VALUES';
+export const COMPANY_REGISTRATION_LOCATION_VALUES = 'COMPANY_REGISTRATION_LOCATION_VALUES';
 
 export function getCategories() {
   return dispatch => {
@@ -21,6 +25,19 @@ export function setCategoriesValues(categories) {
   return {
     type: COMPANY_REGISTRATION_CATEGORY_VALUES,
     categories
+  }
+}
+
+export function getLocations() {
+  return dispatch => {
+    return getLocationInfoAsync(dispatch, setLocationValues);
+  }
+}
+
+export function setLocationValues(locations) {
+  return {
+    type: COMPANY_REGISTRATION_LOCATION_VALUES,
+    locations
   }
 }
 

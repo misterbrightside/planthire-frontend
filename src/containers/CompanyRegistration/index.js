@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Page from '../../components/Page';
 import TextInput from '../../components/TextInput';
 import DropdownSelect from '../../components/DropdownSelect';
-import COUNTIES from '../QuoteForm/counties';
 import Steps from '../../components/StepWizard';
 import { connect } from 'react-redux';
 import {
@@ -15,15 +14,17 @@ import {
   setInterestedCategories,
   setInterestedSubcategories,
   setInterestedServices,
-  getCategories
+  getCategories,
+  getLocations
 } from '../../actions/CompanyRegistrationActions';
 import './CompanyRegistration.css';
 
 class CompanyRegistration extends Component {
 
   componentDidMount() {
-    const { getCategories } = this.props;
+    const { getCategories, getLocations } = this.props;
     getCategories();
+    getLocations();
   }
 
   getSteps() {
@@ -31,7 +32,7 @@ class CompanyRegistration extends Component {
       companyName, correspondenceName, email, 
       phone, location, onChangeCompany, 
       onChangeCorrespondenceName, onChangeEmail, onChangePhone,
-      onChangeLocation
+      onChangeLocation, locationValues
     } = this.props;
     const step1 = (
       <div>
@@ -57,7 +58,7 @@ class CompanyRegistration extends Component {
         />
         <DropdownSelect
           labelText={'Location'}
-          options={COUNTIES}
+          options={locationValues}
           value={location}
           onSelect={onChangeLocation}
         />
@@ -73,7 +74,7 @@ class CompanyRegistration extends Component {
       <div>
         <DropdownSelect
           labelText={'Locations'}
-          options={COUNTIES}
+          options={locationValues}
           multi={true}
           value={selectedLocations}
           onSelect={onChangeSelectedLocations}
@@ -87,14 +88,14 @@ class CompanyRegistration extends Component {
         />
         <DropdownSelect
           labelText={'Subcategories'}
-          options={COUNTIES}
+          options={[]}
           multi={true}
           value={selectedSubcategories}
           onSelect={onChangeSelectedSubcategories}
         />
         <DropdownSelect
           labelText={'Plant name / Services'}
-          options={COUNTIES}
+          options={[]}
           multi={true}
           value={selectedServices}
           onSelect={onChangeSelectedServices}
@@ -127,13 +128,14 @@ const mapStateToProps = state => {
     companyName, correspondenceName, email,
     phone, location, selectedLocations, 
     selectedCategories, selectedSubcategories, selectedServices,
-    categoryValues
+    categoryValues, locationValues
   } = state.CompanyRegistration;
   return {
     stepOneValid: !!(companyName && correspondenceName && email && phone && location),
     stepTwoValid: !!(selectedCategories.length && selectedLocations.length && selectedServices.length && selectedSubcategories.length),
     companyName,
     categoryValues,
+    locationValues,
     correspondenceName,
     email,
     phone,
@@ -147,6 +149,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    getLocations: () => dispatch(getLocations()),
     getCategories: () => dispatch(getCategories()),
     onChangeCompany: value => dispatch(setCompanyName(value)),
     onChangeCorrespondenceName: value => dispatch(setCorrespondenceName(value)),
