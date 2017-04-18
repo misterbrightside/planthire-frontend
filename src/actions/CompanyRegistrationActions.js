@@ -23,6 +23,9 @@ export const COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE = 'COMPANY_REGISTRAT
 export const COMPANY_REGISTRATION_SERVICES_VALUES_APPEND = 'COMPANY_REGISTRATION_SERVICES_VALUES_APPEND';
 export const COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE = 'COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE';
 export const COMPANY_REGISTRATION_SUBMITTED_DATA = 'COMPANY_REGISTRATION_SUBMITTED_DATA';
+export const COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS = 'COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS';
+export const COMPANY_REGISTRATION_NETWORK_TIMED_OUT = 'NCOMPANY_REGISTRATION_ETWORK_TIMED_OUT';
+export const COMPANY_REGISTRATION_UNKNOWN_ERROR = 'COMPANY_REGISTRATION_UNKNOWN_ERROR';
 
 export function getCategories() {
   return dispatch => {
@@ -200,7 +203,9 @@ export function submitForm() {
     dispatch(setSubmittedNewCompany());
     const newCompanyPayload = getNewCompanyObject(getState);
     postNewCompany(newCompanyPayload)
-      .then(res => res.json())
-      .then(json => console.log(json));
+      .then(json => console.log(json))
+      .catch(error => {
+        dispatch({ type: error.message });
+      });
   }
 }

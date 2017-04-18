@@ -1,3 +1,8 @@
+import {
+  COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS,
+  COMPANY_REGISTRATION_NETWORK_TIMED_OUT,
+  COMPANY_REGISTRATION_UNKNOWN_ERROR
+} from './CompanyRegistrationActions';
 
 const API_BASE = 'http://localhost:8081/api';
 
@@ -36,6 +41,21 @@ export function getServicesInfoAsync(categoryId, subcategoryId) {
     })));
 }
 
+function checkForErrorsOnCompanyPost({ status, json}) {
+  switch(status) {
+    case 200:
+      return json;
+    case 409:
+      throw new Error(COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS);
+    case 504:
+      throw new Error(COMPANY_REGISTRATION_NETWORK_TIMED_OUT);
+    case (status >= 400 && status < 600):
+      throw new Error(COMPANY_REGISTRATION_UNKNOWN_ERROR);
+    default:
+      return json;
+  }
+}
+
 export function postNewCompany(company) {
   return fetch(`${API_BASE}/companies`, { 
     method: 'post',
@@ -43,5 +63,11 @@ export function postNewCompany(company) {
       'Content-Type': 'application/json'
     }),
     body: JSON.stringify(company)
-  });
+  })
+  .then(res => {
+    return new Promise((resolve, reject) => {
+      res.json().then(json => resolve({ status: res.status, json }));
+    });
+  })
+  .then(checkForErrorsOnCompanyPost);
 }
