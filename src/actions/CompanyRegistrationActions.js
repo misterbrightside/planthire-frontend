@@ -1,7 +1,10 @@
 import {
   getCategoryInfoAsync,
-  getLocationInfoAsync
+  getLocationInfoAsync,
+  getSubcategoryInfoAsync
 } from './api';
+
+import { diffArray } from '../utils/array';
 
 export const COMPANY_REGISTRATION_COMPANY_NAME = 'COMPANY_REGISTRATION_COMPANY_NAME';
 export const COMPANY_REGISTRATION_CORRESPONDENCE_NAME = 'COMPANY_REGISTRATION_CORRESPONDENCE_NAME';
@@ -14,6 +17,8 @@ export const COMPANY_REGISTRATION_SELECTED_SUBCATEGORIES = 'COMPANY_REGISTRATION
 export const COMPANY_REGISTRATION_SELECTED_SERVICES = 'COMPANY_REGISTRATION_SELECTED_SERVICES';
 export const COMPANY_REGISTRATION_CATEGORY_VALUES = 'COMPANY_REGISTRATION_CATEGORY_VALUES';
 export const COMPANY_REGISTRATION_LOCATION_VALUES = 'COMPANY_REGISTRATION_LOCATION_VALUES';
+export const COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND = 'COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND';
+export const COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE = 'COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE';
 
 export function getCategories() {
   return dispatch => {
@@ -87,6 +92,35 @@ export function setInterestedCategories(categories) {
   return {
     type: COMPANY_REGISTRATION_SELECTED_CATEGORIES,
     categories
+  }
+}
+
+export function getServicesAndSetInterestedCategories(categories) {
+  return (dispatch, getState) => {
+    const state = getState().CompanyRegistration.selectedCategories;
+    const selectedValue = diffArray(state, categories)[0];
+    if (state.length > categories.length) {
+      dispatch(removeSubcategories(selectedValue));
+      //removeServices(selectedValue);
+    } else {
+      getSubcategoryInfoAsync(selectedValue)
+       .then(subcategories => dispatch(appendSubcategories(subcategories)));
+    }
+    dispatch(setInterestedCategories(categories));
+  };
+}
+
+export function appendSubcategories(subcategories) {
+  return {
+    type: COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND,
+    subcategories
+  }
+}
+
+export function removeSubcategories(category) {
+  return {
+    type: COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE,
+    category
   }
 }
 

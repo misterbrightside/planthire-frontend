@@ -14,3 +14,13 @@ export function getCategoryInfoAsync(dispatch, nextAction) {
     .then(json => json.map(category => ({ value: category.id, label: category.category })))
     .then(categories => dispatch(nextAction(categories)));
 }
+
+export function getSubcategoryInfoAsync(selectedValue) {
+  return fetch(`${API_BASE}/categories/${selectedValue.value}`)
+    .then(res => res.json())
+    .then(json => json.subcategories.map(subcategory => ({ 
+      value: subcategory.id,
+      label: subcategory.subcategory,
+      categoryId: subcategory.categoryId
+    })));
+}
