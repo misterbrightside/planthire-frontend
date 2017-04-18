@@ -1,5 +1,5 @@
 
-const API_BASE = 'http://localhost:8081/api';
+const API_BASE = 'https://murmuring-harbor-78048.herokuapp.com/api';
 
 export function getLocationInfoAsync(dispatch, nextAction) {
   return fetch(`${API_BASE}/locations`)
