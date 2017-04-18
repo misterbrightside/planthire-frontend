@@ -150,12 +150,29 @@ export function setPhone(phone) {
   }
 }
 
+function getNewQuoteFormPayload(state) {
+  const { 
+    category, county, dateRange,
+    email, name, phone, 
+    plantName, subcategory, transportMethod
+  } = state().QuoteForm;
+  return {
+    categoryId: category,
+    locationId: county,
+    startDate: dateRange.startDate.toISOString(),
+    endDate: dateRange.endDate.toISOString(),
+    email,
+    name,
+    phone,
+    service: plantName,
+    subcategoryId: subcategory,
+    transportMethod
+  };
+}
+
 export function submitNewOrderRequest() {
   return (dispatch, getState) => {
-    // const { 
-    //   category, county, dateRange,
-    //   email, name, phone, 
-    //   plantName, subcategory, transportMethod
-    // } = getState().QuoteForm;
+    const newQuoteForm = getNewQuoteFormPayload(getState);
+    console.log(newQuoteForm);
   }
 }
