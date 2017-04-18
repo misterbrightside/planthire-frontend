@@ -1,4 +1,7 @@
-import { getCategoryInfoAsync } from './api';
+import { 
+  getCategoryInfoAsync,
+  getLocationInfoAsync
+} from './api';
 
 export const SELECT_DATES = 'SELECT_DATES';
 export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
@@ -12,6 +15,7 @@ export const SET_TRANSPORT_METHOD = 'SET_TRANSPORT_METHOD';
 export const SET_EMAIL = 'SET_EMAIL';
 export const SET_PHONE = 'SET_PHONE';
 export const SET_NAME = 'SET_NAME';
+export const SET_LOCATIONS = 'SET_LOCATIONS';
 
 const API_BASE = 'https://murmuring-harbor-78048.herokuapp.com/api';
 
@@ -53,6 +57,19 @@ export function setCategory(category) {
   return {
     type: SET_CATEGORY,
     category
+  }
+}
+
+export function setLocations(locations) {
+  return {
+    type: SET_LOCATIONS,
+    locations
+  };
+}
+
+export function getLocations() {
+  return dispatch => {
+    return getLocationInfoAsync(dispatch, setLocations);
   }
 }
 
@@ -130,5 +147,15 @@ export function setPhone(phone) {
   return {
     type: SET_PHONE,
     phone
+  }
+}
+
+export function submitNewOrderRequest() {
+  return (dispatch, getState) => {
+    // const { 
+    //   category, county, dateRange,
+    //   email, name, phone, 
+    //   plantName, subcategory, transportMethod
+    // } = getState().QuoteForm;
   }
 }

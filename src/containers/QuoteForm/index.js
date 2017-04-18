@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import DropdownSelect from '../../components/DropdownSelect';
+import TextInput from '../../components/TextInput';
 import RadioButton from '../../components/RadioButton';
 import Steps from '../../components/StepWizard';
-import COUNTIES from './counties';
 import './QuoteForm.css';
 
 import { connect } from 'react-redux';
@@ -16,7 +16,9 @@ import {
   setEmail,
   setName,
   setPhone,
-  getCategories
+  getCategories,
+  submitNewOrderRequest,
+  getLocations
 } from '../../actions/QuoteFormActions';
 
 import { DateRangePicker } from 'react-dates';
@@ -33,8 +35,9 @@ class QuoteForm extends Component {
   }
 
   componentDidMount() {
-    const { getCategoryInfo } = this.props;
+    const { getCategoryInfo, getLocations } = this.props;
     getCategoryInfo();
+    getLocations();
   }
 
   getRadioGroup() {
@@ -90,7 +93,8 @@ class QuoteForm extends Component {
     );
 
     const { 
-      startDate, endDate, onDateSelect, onSetCounty, county
+      startDate, endDate, onDateSelect,
+      onSetCounty, county, locations
     } = this.props;
     const step2 = (
       <div className={'StepContainer'}>
@@ -99,7 +103,7 @@ class QuoteForm extends Component {
           listId={'requiredFor'}
           value={county}
           onSelect={onSetCounty}
-          options={COUNTIES}
+          options={locations}
         />
         <div className={'DateRangePickerContainer'}>
           <DateRangePicker
@@ -121,26 +125,20 @@ class QuoteForm extends Component {
     } = this.props;
     const step3 = (
       <div className={'StepContainer'}>
-        <DropdownSelect
-          labelText={'Email'}
-          listId={'requiredFor'}
-          options={COUNTIES}
+        <TextInput
+          label={'Email'}
           value={email}
-          onSelect={onSetEmail}
+          onChangeValue={onSetEmail}
         />
-        <DropdownSelect
-          labelText={'Phone'}
-          listId={'requiredFor'}
-          options={COUNTIES}
+        <TextInput
+          label={'Phone'}
           value={phone}
-          onSelect={onSetPhone}
+          onChangeValue={onSetPhone}
         />
-        <DropdownSelect
-          labelText={'Name'}
-          listId={'requiredFor'}
-          options={COUNTIES}
+        <TextInput
+          label={'Name'}
           value={name}
-          onSelect={onSetName}
+          onChangeValue={onSetName}
         />
       </div>
     );
@@ -152,7 +150,8 @@ class QuoteForm extends Component {
     const steps = this.getSteps();
     const {
       activeStep, onClickNextStep, onClickBackStep,
-      stepOneValid, stepTwoValid, stepThreeValid
+      stepOneValid, stepTwoValid, stepThreeValid,
+      onSubmitForm
      } = this.props;
     return (
       <form className={'QuoteForm'}>
@@ -163,6 +162,7 @@ class QuoteForm extends Component {
           onClickNextStep={onClickNextStep}
           activeStep={activeStep}
           submitButtonText={'Get me a quote'}
+          onClickSubmit={onSubmitForm}
         />
       </form>
     );
@@ -174,7 +174,8 @@ const mapStateToProps = (state) => {
     activeStep, category, subcategory, 
     plantName, county, transportMethod,
     dateRange, email, phone, name,
-    categories, subcategories, services
+    categories, subcategories, services,
+    locations
   } = state.QuoteForm;
 
   return {
@@ -189,6 +190,7 @@ const mapStateToProps = (state) => {
     plantName,
     services,
     county,
+    locations,
     transportMethod,
     startDate: dateRange.startDate,
     endDate: dateRange.endDate,
@@ -200,6 +202,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getLocations: () => dispatch(getLocations()),
     getCategoryInfo: () => dispatch(getCategories()),
     onDateSelect: ({ startDate, endDate }) => dispatch(selectDates(startDate, endDate)),
     onSetCategory: ({ value }) => dispatch(setCategoryAndFetchSubcategoryInfo(value)),
@@ -207,9 +210,10 @@ const mapDispatchToProps = (dispatch) => {
     onSetPlantname: ({ value }) => dispatch(setPlantName(value)),
     onSetCounty: ({ value }) => dispatch(setCounty(value)),
     onSetTransportMethod: value => dispatch(setTransportMode(value)),
-    onSetEmail: ({ value }) => dispatch(setEmail(value)),
-    onSetPhone: ({ value }) => dispatch(setPhone(value)),
-    onSetName: ({ value }) => dispatch(setName(value))
+    onSetEmail: value => dispatch(setEmail(value)),
+    onSetPhone: value => dispatch(setPhone(value)),
+    onSetName: value => dispatch(setName(value)),
+    onSubmitForm: () => dispatch(submitNewOrderRequest())
   }
 }
 

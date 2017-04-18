@@ -11,13 +11,23 @@ import {
   SET_NAME,
   SET_CATEGORY_DATA,
   SET_SUBCATEGORY_DATA,
-  SET_SERVICES_DATA
+  SET_SERVICES_DATA,
+  SET_LOCATIONS
 } from '../actions/QuoteFormActions';
 
 function dateRange(state = { startDate: null, endDate: null}, action) {
   switch(action.type) {
     case SELECT_DATES:
       return { startDate: action.startDate, endDate: action.endDate };
+    default:
+      return state;
+  }
+}
+
+function locations(state = [], action) {
+  switch(action.type) {
+    case SET_LOCATIONS:
+      return action.locations;
     default:
       return state;
   }
@@ -95,7 +105,7 @@ function transportMethod(state = 'collection', action) {
   }
 }
 
-function email(state = null, action) {
+function email(state = '', action) {
   switch(action.type) {
     case SET_EMAIL:
       return action.email;
@@ -104,7 +114,7 @@ function email(state = null, action) {
   }
 }
 
-function phone(state = null, action) {
+function phone(state = '', action) {
   switch(action.type) {
     case SET_PHONE:
       return action.phone;
@@ -113,7 +123,7 @@ function phone(state = null, action) {
   }
 }
 
-function name(state = null, action) {
+function name(state = '', action) {
   switch(action.type) {
     case SET_NAME:
       return action.name;
@@ -134,7 +144,8 @@ const OrderForm = combineReducers({
   transportMethod,
   email,
   name,
-  phone
+  phone,
+  locations
 });
 
 export default OrderForm;
