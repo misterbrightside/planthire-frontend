@@ -1,0 +1,27 @@
+.StatusMessage {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  padding: 15px 0;
+  margin-bottom: 10px;
+  width: 92.5vw;
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, .5);
+  font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.StatusMessage.error {
+  background: rgba(244, 67, 54, .75);
+}
+
+.StatusMessage-message {
+  flex: 0 1 90%;
+  padding: 0 5px;
+}
+
+.StatusMessage-dismissButton {
+  flex: 0 1 10%;
+  padding: 0 5px;
+}

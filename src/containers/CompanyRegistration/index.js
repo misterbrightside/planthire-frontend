@@ -3,6 +3,7 @@ import Page from '../../components/Page';
 import TextInput from '../../components/TextInput';
 import DropdownSelect from '../../components/DropdownSelect';
 import Steps from '../../components/StepWizard';
+import StatusMessage from '../../components/StatusMessage';
 import { connect } from 'react-redux';
 import {
   setCompanyName,
@@ -16,7 +17,8 @@ import {
   setInterestedServices,
   getCategories,
   getLocations,
-  submitForm
+  submitForm,
+  dismissStatus
 } from '../../actions/CompanyRegistrationActions';
 import './CompanyRegistration.css';
 
@@ -109,10 +111,16 @@ class CompanyRegistration extends Component {
   }
 
   render() {
-    const { stepOneValid, stepTwoValid, onFormSubmit } = this.props;
+    const { stepOneValid, stepTwoValid, onFormSubmit, errorMessage, onDismissError } = this.props;
     return (
       <Page>
         <div className={'CompanyRegistration'}>
+          { errorMessage ? 
+            <StatusMessage
+              message={errorMessage}
+              type={'error'}
+              onDismiss={onDismissError}
+            /> : null }
           <Steps
             steps={this.getSteps()}
             completedSteps={[stepOneValid, stepTwoValid]}
@@ -131,11 +139,12 @@ const mapStateToProps = state => {
     phone, location, selectedLocations, 
     selectedCategories, selectedSubcategories, selectedServices,
     categoryValues, locationValues, subcategoryValues,
-    serviceValues
+    serviceValues, error
   } = state.CompanyRegistration;
+
   return {
     stepOneValid: !!(companyName && correspondenceName && email && phone && location),
-    stepTwoValid: !!(selectedCategories.length && selectedLocations.length && selectedServices.length && selectedSubcategories.length),
+    stepTwoValid: !!(selectedCategories.length && selectedLocations.length && selectedServices.length && selectedSubcategories.length && error.canSubmitForm),
     companyName,
     categoryValues,
     locationValues,
@@ -148,7 +157,8 @@ const mapStateToProps = state => {
     selectedLocations,
     selectedCategories,
     selectedSubcategories,
-    selectedServices
+    selectedServices,
+    errorMessage: error.message
   }
 };
 
@@ -165,7 +175,8 @@ const mapDispatchToProps = dispatch => {
     onChangeSelectedCategories: values => dispatch(getSubcategoriesAndSetInterestedCategories(values)),
     onChangeSelectedSubcategories: values => dispatch(getServicesAndSetInterestedSubcategories(values)),
     onChangeSelectedServices: values => dispatch(setInterestedServices(values)),
-    onFormSubmit: () => dispatch(submitForm())
+    onFormSubmit: () => dispatch(submitForm()),
+    onDismissError: () => dispatch(dismissStatus())
   };
 };
 

@@ -26,6 +26,8 @@ export const COMPANY_REGISTRATION_SUBMITTED_DATA = 'COMPANY_REGISTRATION_SUBMITT
 export const COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS = 'COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS';
 export const COMPANY_REGISTRATION_NETWORK_TIMED_OUT = 'NCOMPANY_REGISTRATION_ETWORK_TIMED_OUT';
 export const COMPANY_REGISTRATION_UNKNOWN_ERROR = 'COMPANY_REGISTRATION_UNKNOWN_ERROR';
+export const COMPANY_REGISTRATION_CLEAR_ERROR = 'COMPANY_REGISTRATION_CLEAR_ERROR';
+export const COMPANY_REGISTRATION_DISMISS_ERROR = 'COMPANY_REGISTRATION_DISMISS_ERROR';
 
 export function getCategories() {
   return dispatch => {
@@ -67,11 +69,19 @@ export function setCorrespondenceName(correspondenceName) {
   };
 }
 
+function maybeClearError(dispatch, state) {
+  const error = state().CompanyRegistration.error;
+  if (error) dispatch(clearError());
+}
+
 export function setEmail(email) {
-  return {
-    type: COMPANY_REGISTRATION_EMAIL,
-    email
-  };
+  return (dispatch, getState) => {
+    maybeClearError(dispatch, getState);
+    return dispatch({
+      type: COMPANY_REGISTRATION_EMAIL,
+      email
+    });
+  }
 }
 
 export function setPhone(phone) {
@@ -195,6 +205,18 @@ function getNewCompanyObject(state) {
     interestedCategories: selectedCategories.map(category => category.value),
     interestedSubcategories: selectedSubcategories.map(subcategory => subcategory.value),
     interestedServices: selectedServices.map(service => service.value)
+  }
+}
+
+export function clearError() {
+  return {
+    type: COMPANY_REGISTRATION_CLEAR_ERROR
+  }
+}
+
+export function dismissStatus() {
+  return {
+    type: COMPANY_REGISTRATION_DISMISS_ERROR
   }
 }
 

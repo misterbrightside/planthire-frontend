@@ -14,7 +14,12 @@ import {
   COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND,
   COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE,
   COMPANY_REGISTRATION_SERVICES_VALUES_APPEND,
-  COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE
+  COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE,
+  COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS,
+  COMPANY_REGISTRATION_NETWORK_TIMED_OUT,
+  COMPANY_REGISTRATION_UNKNOWN_ERROR,
+  COMPANY_REGISTRATION_CLEAR_ERROR,
+  COMPANY_REGISTRATION_DISMISS_ERROR
 } from '../actions/CompanyRegistrationActions';
 
 function companyName(state = '', action) {
@@ -144,6 +149,23 @@ function selectedServices(state = [], action) {
   }
 }
 
+function error(state = { message: '', canSubmitForm: true }, action) {
+  switch(action.type) {
+    case COMPANY_REGISTRATION_EMAIL_ALREADY_EXISTS:
+      return { message: 'The email selected already exists.', canSubmitForm: false };
+    case COMPANY_REGISTRATION_DISMISS_ERROR:
+      return { message: '', canSubmitForm: state.canSubmitForm };
+    case COMPANY_REGISTRATION_NETWORK_TIMED_OUT:
+      return { message: 'The network timed out trying to complete registration.', canSubmitForm: true };
+    case COMPANY_REGISTRATION_UNKNOWN_ERROR:
+      return { message: 'Something happened, please try again.', canSubmitForm: true };
+    case COMPANY_REGISTRATION_CLEAR_ERROR:
+      return { message: '', canSubmitForm: true };
+    default:
+      return state;
+  }
+}
+
 const companyRegistration = combineReducers({
   companyName,
   correspondenceName,
@@ -157,7 +179,8 @@ const companyRegistration = combineReducers({
   selectedServices,
   categoryValues,
   locationValues,
-  serviceValues
+  serviceValues,
+  error
 });
 
 export default companyRegistration;
