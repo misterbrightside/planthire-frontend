@@ -16,7 +16,7 @@ import {
   setEmail,
   setName,
   setPhone,
-  getCategoryInfoAsync
+  getCategories
 } from '../../actions/QuoteFormActions';
 
 import { DateRangePicker } from 'react-dates';
@@ -200,7 +200,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCategoryInfo: () => dispatch(getCategoryInfoAsync()),
+    getCategoryInfo: () => dispatch(getCategories()),
     onDateSelect: ({ startDate, endDate }) => dispatch(selectDates(startDate, endDate)),
     onSetCategory: ({ value }) => dispatch(setCategoryAndFetchSubcategoryInfo(value)),
     onSetSubcategory: ({ value }) => dispatch(setSubcategoryAndFetchServiceInfo(value)),

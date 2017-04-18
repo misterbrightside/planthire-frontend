@@ -1,3 +1,5 @@
+import { getCategoryInfoAsync } from './api';
+
 export const SELECT_DATES = 'SELECT_DATES';
 export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
 export const SET_CATEGORY = 'SET_CATEGORY';
@@ -13,12 +15,9 @@ export const SET_NAME = 'SET_NAME';
 
 const API_BASE = 'http://localhost:8081/api';
 
-export function getCategoryInfoAsync() {
+export function getCategories() {
   return dispatch => {
-    return fetch(`${API_BASE}/categories?nested=false`)
-      .then(res => res.json())
-      .then(json => json.map(category => ({ value: category.id, label: category.category })))
-      .then(categories => dispatch(setCategories(categories)));
+    return getCategoryInfoAsync(dispatch, setCategories);
   };
 }
 

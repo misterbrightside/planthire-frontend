@@ -8,7 +8,8 @@ import {
   COMPANY_REGISTRATION_SELECTED_LOCATIONS,
   COMPANY_REGISTRATION_SELECTED_CATEGORIES,
   COMPANY_REGISTRATION_SELECTED_SUBCATEGORIES,
-  COMPANY_REGISTRATION_SELECTED_SERVICES
+  COMPANY_REGISTRATION_SELECTED_SERVICES,
+  COMPANY_REGISTRATION_CATEGORY_VALUES
 } from '../actions/CompanyRegistrationActions';
 
 function companyName(state = '', action) {
@@ -51,6 +52,15 @@ function location(state = '', action) {
   switch(action.type) {
     case COMPANY_REGISTRATION_LOCATION:
       return action.location;
+    default:
+      return state;
+  }
+}
+
+function categoryValues(state = [], action) {
+  switch(action.type) {
+    case COMPANY_REGISTRATION_CATEGORY_VALUES:
+      return action.categories;
     default:
       return state;
   }
@@ -101,7 +111,8 @@ const companyRegistration = combineReducers({
   selectedLocations,
   selectedCategories,
   selectedSubcategories,
-  selectedServices
+  selectedServices,
+  categoryValues
 });
 
 export default companyRegistration;

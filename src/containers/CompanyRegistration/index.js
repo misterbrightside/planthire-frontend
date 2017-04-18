@@ -14,11 +14,17 @@ import {
   setInterestedLocations,
   setInterestedCategories,
   setInterestedSubcategories,
-  setInterestedServices
+  setInterestedServices,
+  getCategories
 } from '../../actions/CompanyRegistrationActions';
 import './CompanyRegistration.css';
 
 class CompanyRegistration extends Component {
+
+  componentDidMount() {
+    const { getCategories } = this.props;
+    getCategories();
+  }
 
   getSteps() {
     const {
@@ -61,7 +67,7 @@ class CompanyRegistration extends Component {
     const { 
       selectedLocations, selectedCategories, selectedSubcategories, 
       selectedServices, onChangeSelectedLocations, onChangeSelectedCategories,
-      onChangeSelectedSubcategories, onChangeSelectedServices
+      onChangeSelectedSubcategories, onChangeSelectedServices, categoryValues
     } = this.props;
     const step2 = (
       <div>
@@ -74,7 +80,7 @@ class CompanyRegistration extends Component {
         />
         <DropdownSelect
           labelText={'Hire Categories'}
-          options={COUNTIES}
+          options={categoryValues}
           multi={true}
           value={selectedCategories}
           onSelect={onChangeSelectedCategories}
@@ -120,12 +126,14 @@ const mapStateToProps = state => {
   const {
     companyName, correspondenceName, email,
     phone, location, selectedLocations, 
-    selectedCategories, selectedSubcategories, selectedServices 
+    selectedCategories, selectedSubcategories, selectedServices,
+    categoryValues
   } = state.CompanyRegistration;
   return {
     stepOneValid: !!(companyName && correspondenceName && email && phone && location),
     stepTwoValid: !!(selectedCategories.length && selectedLocations.length && selectedServices.length && selectedSubcategories.length),
     companyName,
+    categoryValues,
     correspondenceName,
     email,
     phone,
@@ -139,6 +147,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    getCategories: () => dispatch(getCategories()),
     onChangeCompany: value => dispatch(setCompanyName(value)),
     onChangeCorrespondenceName: value => dispatch(setCorrespondenceName(value)),
     onChangeEmail: value => dispatch(setEmail(value)),
