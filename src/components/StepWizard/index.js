@@ -18,7 +18,7 @@ const FirstStep = ({ step, visible, onClickNextStep, complete }) => {
   ) : null;
 };
 
-const LastStep = ({ step, onClickBackStep, visible, complete, submitButtonText }) => {
+const LastStep = ({ step, onClickBackStep, visible, complete, submitButtonText, onClickSubmit }) => {
   return visible ? (
     <div className={'Step'}>
       <div>{step}</div>
@@ -33,6 +33,7 @@ const LastStep = ({ step, onClickBackStep, visible, complete, submitButtonText }
           buttonText={submitButtonText}
           direction={'right'}
           disabled={!complete}
+          onClickButton={onClickSubmit}
         />
       </div>
     </div>
@@ -85,7 +86,7 @@ class Steps extends Component {
 
   render() {
     const {
-      steps, completedSteps, submitButtonText
+      steps, completedSteps, submitButtonText, onClickSubmit
     } = this.props;
     const { activeStep } = this.state;
     const firstStep = steps[0];
@@ -118,6 +119,7 @@ class Steps extends Component {
           complete={completedSteps[steps.length - 1]}
           onClickBackStep={this.onClickBackStep}
           submitButtonText={submitButtonText}
+          onClickSubmit={onClickSubmit}
         />
       </div>
     );

@@ -1,5 +1,4 @@
 - Polyfill for datalist element, which doesn't work in html5.
-- On select hire categories, load in async for subcats and plant name/services.
 - validation of:
   - email
   - phone
@@ -20,3 +19,6 @@
   - match all companies that fit descript
   - email them all. 
 - change proper fields to text input with validation
+
+DONE:
+- On select hire categories, load in async for subcats and plant name/services.

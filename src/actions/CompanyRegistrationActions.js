@@ -2,9 +2,9 @@ import {
   getCategoryInfoAsync,
   getLocationInfoAsync,
   getSubcategoryInfoAsync,
-  getServicesInfoAsync
+  getServicesInfoAsync,
+  postNewCompany
 } from './api';
-
 import { diffArray } from '../utils/array';
 
 export const COMPANY_REGISTRATION_COMPANY_NAME = 'COMPANY_REGISTRATION_COMPANY_NAME';
@@ -22,6 +22,7 @@ export const COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND = 'COMPANY_REGISTRAT
 export const COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE = 'COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE';
 export const COMPANY_REGISTRATION_SERVICES_VALUES_APPEND = 'COMPANY_REGISTRATION_SERVICES_VALUES_APPEND';
 export const COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE = 'COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE';
+export const COMPANY_REGISTRATION_SUBMITTED_DATA = 'COMPANY_REGISTRATION_SUBMITTED_DATA';
 
 export function getCategories() {
   return dispatch => {
@@ -165,5 +166,41 @@ export function setInterestedServices(services) {
   return {
     type: COMPANY_REGISTRATION_SELECTED_SERVICES,
     services
+  }
+}
+
+export function setSubmittedNewCompany() {
+  return {
+    type: COMPANY_REGISTRATION_SUBMITTED_DATA
+  }
+}
+
+function getNewCompanyObject(state) {
+  const {
+    companyName, correspondenceName, email,
+    location, phone, selectedCategories,
+    selectedLocations, selectedServices, selectedSubcategories
+  } = state().CompanyRegistration;
+
+  return {
+    companyName,
+    correspondenceName,
+    email,
+    phone,
+    locationId: location,
+    notificationAreas: selectedLocations.map(location => location.value),
+    interestedCategories: selectedCategories.map(category => category.value),
+    interestedSubcategories: selectedSubcategories.map(subcategory => subcategory.value),
+    interestedServices: selectedServices.map(service => service.value)
+  }
+}
+
+export function submitForm() {
+  return (dispatch, getState) => {
+    dispatch(setSubmittedNewCompany());
+    const newCompanyPayload = getNewCompanyObject(getState);
+    postNewCompany(newCompanyPayload)
+      .then(res => res.json())
+      .then(json => console.log(json));
   }
 }

@@ -1,5 +1,5 @@
 
-const API_BASE = 'https://murmuring-harbor-78048.herokuapp.com/api';
+const API_BASE = 'http://localhost:8081/api';
 
 export function getLocationInfoAsync(dispatch, nextAction) {
   return fetch(`${API_BASE}/locations`)
@@ -34,4 +34,14 @@ export function getServicesInfoAsync(categoryId, subcategoryId) {
       subcategoryId: service.subcategoryId,
       categoryId: json.categoryId
     })));
+}
+
+export function postNewCompany(company) {
+  return fetch(`${API_BASE}/companies`, { 
+    method: 'post',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    body: JSON.stringify(company)
+  });
 }

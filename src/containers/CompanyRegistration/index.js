@@ -15,7 +15,8 @@ import {
   getServicesAndSetInterestedSubcategories,
   setInterestedServices,
   getCategories,
-  getLocations
+  getLocations,
+  submitForm
 } from '../../actions/CompanyRegistrationActions';
 import './CompanyRegistration.css';
 
@@ -108,7 +109,7 @@ class CompanyRegistration extends Component {
   }
 
   render() {
-    const { stepOneValid, stepTwoValid } = this.props;
+    const { stepOneValid, stepTwoValid, onFormSubmit } = this.props;
     return (
       <Page>
         <div className={'CompanyRegistration'}>
@@ -116,7 +117,7 @@ class CompanyRegistration extends Component {
             steps={this.getSteps()}
             completedSteps={[stepOneValid, stepTwoValid]}
             submitButtonText={'Submit Details'}
-            activeStep={0}
+            onClickSubmit={onFormSubmit}
           />
         </div>
       </Page>
@@ -163,7 +164,8 @@ const mapDispatchToProps = dispatch => {
     onChangeSelectedLocations: values => dispatch(setInterestedLocations(values)),
     onChangeSelectedCategories: values => dispatch(getSubcategoriesAndSetInterestedCategories(values)),
     onChangeSelectedSubcategories: values => dispatch(getServicesAndSetInterestedSubcategories(values)),
-    onChangeSelectedServices: values => dispatch(setInterestedServices(values))
+    onChangeSelectedServices: values => dispatch(setInterestedServices(values)),
+    onFormSubmit: () => dispatch(submitForm())
   };
 };
 
