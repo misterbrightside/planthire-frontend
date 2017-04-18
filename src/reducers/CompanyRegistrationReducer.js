@@ -12,7 +12,9 @@ import {
   COMPANY_REGISTRATION_CATEGORY_VALUES,
   COMPANY_REGISTRATION_LOCATION_VALUES,
   COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND,
-  COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE
+  COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE,
+  COMPANY_REGISTRATION_SERVICES_VALUES_APPEND,
+  COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE
 } from '../actions/CompanyRegistrationActions';
 
 function companyName(state = '', action) {
@@ -89,6 +91,17 @@ function locationValues(state = [], action) {
   }
 }
 
+function serviceValues(state = [], action) {
+  switch(action.type) {
+    case COMPANY_REGISTRATION_SERVICES_VALUES_APPEND:
+      return state.concat(action.services).sort((a, b) => a.value < b.value);
+    case COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE:
+      return state.filter(service => service.subcategoryId !== action.subcategory.value);
+    default:
+      return state;
+  }
+}
+
 function selectedLocations(state = [], action) {
   switch(action.type) {
     case COMPANY_REGISTRATION_SELECTED_LOCATIONS:
@@ -122,6 +135,10 @@ function selectedServices(state = [], action) {
   switch(action.type) {
     case COMPANY_REGISTRATION_SELECTED_SERVICES:
       return action.services;
+    case COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE:
+      return state.filter(service => service.subcategoryId !== action.subcategory.value);
+    case COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE:
+      return state.filter(service => service.categoryId !== action.category.value);
     default:
       return state;
   }
@@ -139,7 +156,8 @@ const companyRegistration = combineReducers({
   selectedSubcategories,
   selectedServices,
   categoryValues,
-  locationValues
+  locationValues,
+  serviceValues
 });
 
 export default companyRegistration;

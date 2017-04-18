@@ -1,7 +1,8 @@
 import {
   getCategoryInfoAsync,
   getLocationInfoAsync,
-  getSubcategoryInfoAsync
+  getSubcategoryInfoAsync,
+  getServicesInfoAsync
 } from './api';
 
 import { diffArray } from '../utils/array';
@@ -19,6 +20,8 @@ export const COMPANY_REGISTRATION_CATEGORY_VALUES = 'COMPANY_REGISTRATION_CATEGO
 export const COMPANY_REGISTRATION_LOCATION_VALUES = 'COMPANY_REGISTRATION_LOCATION_VALUES';
 export const COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND = 'COMPANY_REGISTRATION_SUBCATEGORY_VALUES_APPEND';
 export const COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE = 'COMPANY_REGISTRATION_SUBCATEGORY_VALUES_REMOVE';
+export const COMPANY_REGISTRATION_SERVICES_VALUES_APPEND = 'COMPANY_REGISTRATION_SERVICES_VALUES_APPEND';
+export const COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE = 'COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE';
 
 export function getCategories() {
   return dispatch => {
@@ -95,19 +98,32 @@ export function setInterestedCategories(categories) {
   }
 }
 
-export function getServicesAndSetInterestedCategories(categories) {
+export function getSubcategoriesAndSetInterestedCategories(categories) {
   return (dispatch, getState) => {
     const state = getState().CompanyRegistration.selectedCategories;
-    const selectedValue = diffArray(state, categories)[0];
+    const [selectedValue] = diffArray(state, categories);
     if (state.length > categories.length) {
       dispatch(removeSubcategories(selectedValue));
-      //removeServices(selectedValue);
     } else {
-      getSubcategoryInfoAsync(selectedValue)
+      getSubcategoryInfoAsync(selectedValue.value)
        .then(subcategories => dispatch(appendSubcategories(subcategories)));
     }
     dispatch(setInterestedCategories(categories));
   };
+}
+
+export function getServicesAndSetInterestedSubcategories(subcategories) {
+  return (dispatch, getState) => {
+    const state = getState().CompanyRegistration.selectedSubcategories;
+    const [selectedValue] = diffArray(state, subcategories);
+    if (state.length > subcategories.length) {
+      dispatch(removeServices(selectedValue));
+    } else {
+      getServicesInfoAsync(selectedValue.categoryId, selectedValue.value)
+        .then(services => dispatch(appendServices(services)));
+    }
+    dispatch(setInterestedSubcategories(subcategories));
+  }
 }
 
 export function appendSubcategories(subcategories) {
@@ -128,6 +144,20 @@ export function setInterestedSubcategories(subcategories) {
   return {
     type: COMPANY_REGISTRATION_SELECTED_SUBCATEGORIES,
     subcategories
+  }
+}
+
+export function appendServices(services) {
+  return {
+    type: COMPANY_REGISTRATION_SERVICES_VALUES_APPEND,
+    services
+  }
+}
+
+export function removeServices(subcategory) {
+  return {
+    type: COMPANY_REGISTRATION_SERVICES_VALUES_REMOVE,
+    subcategory
   }
 }
 

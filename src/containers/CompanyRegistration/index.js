@@ -11,8 +11,8 @@ import {
   setPhone,
   setLocation,
   setInterestedLocations,
-  getServicesAndSetInterestedCategories,
-  setInterestedSubcategories,
+  getSubcategoriesAndSetInterestedCategories,
+  getServicesAndSetInterestedSubcategories,
   setInterestedServices,
   getCategories,
   getLocations
@@ -69,7 +69,7 @@ class CompanyRegistration extends Component {
       selectedLocations, selectedCategories, selectedSubcategories, 
       selectedServices, onChangeSelectedLocations, onChangeSelectedCategories,
       onChangeSelectedSubcategories, onChangeSelectedServices, categoryValues,
-      subcategoryValues
+      subcategoryValues, serviceValues
     } = this.props;
     const step2 = (
       <div>
@@ -96,7 +96,7 @@ class CompanyRegistration extends Component {
         />
         <DropdownSelect
           labelText={'Plant name / Services'}
-          options={[]}
+          options={serviceValues}
           multi={true}
           value={selectedServices}
           onSelect={onChangeSelectedServices}
@@ -129,7 +129,8 @@ const mapStateToProps = state => {
     companyName, correspondenceName, email,
     phone, location, selectedLocations, 
     selectedCategories, selectedSubcategories, selectedServices,
-    categoryValues, locationValues, subcategoryValues
+    categoryValues, locationValues, subcategoryValues,
+    serviceValues
   } = state.CompanyRegistration;
   return {
     stepOneValid: !!(companyName && correspondenceName && email && phone && location),
@@ -137,6 +138,7 @@ const mapStateToProps = state => {
     companyName,
     categoryValues,
     locationValues,
+    serviceValues,
     subcategoryValues,
     correspondenceName,
     email,
@@ -159,8 +161,8 @@ const mapDispatchToProps = dispatch => {
     onChangePhone: value => dispatch(setPhone(value)),
     onChangeLocation: ({ value }) => dispatch(setLocation(value)),
     onChangeSelectedLocations: values => dispatch(setInterestedLocations(values)),
-    onChangeSelectedCategories: values => dispatch(getServicesAndSetInterestedCategories(values)),
-    onChangeSelectedSubcategories: values => dispatch(setInterestedSubcategories(values)),
+    onChangeSelectedCategories: values => dispatch(getSubcategoriesAndSetInterestedCategories(values)),
+    onChangeSelectedSubcategories: values => dispatch(getServicesAndSetInterestedSubcategories(values)),
     onChangeSelectedServices: values => dispatch(setInterestedServices(values))
   };
 };

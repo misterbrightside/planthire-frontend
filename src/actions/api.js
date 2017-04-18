@@ -15,12 +15,23 @@ export function getCategoryInfoAsync(dispatch, nextAction) {
     .then(categories => dispatch(nextAction(categories)));
 }
 
-export function getSubcategoryInfoAsync(selectedValue) {
-  return fetch(`${API_BASE}/categories/${selectedValue.value}`)
+export function getSubcategoryInfoAsync(categoryId) {
+  return fetch(`${API_BASE}/categories/${categoryId}`)
     .then(res => res.json())
     .then(json => json.subcategories.map(subcategory => ({ 
       value: subcategory.id,
       label: subcategory.subcategory,
       categoryId: subcategory.categoryId
+    })));
+}
+
+export function getServicesInfoAsync(categoryId, subcategoryId) {
+  return fetch(`${API_BASE}/categories/${categoryId}/subcategories/${subcategoryId}`)
+    .then(res => res.json())
+    .then(json => json.services.map(service => ({
+      value: service.id,
+      label: service.service,
+      subcategoryId: service.subcategoryId,
+      categoryId: json.categoryId
     })));
 }
