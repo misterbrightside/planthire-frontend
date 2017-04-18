@@ -13,7 +13,7 @@ export const SET_EMAIL = 'SET_EMAIL';
 export const SET_PHONE = 'SET_PHONE';
 export const SET_NAME = 'SET_NAME';
 
-const API_BASE = 'http://localhost:8081/api';
+const API_BASE = 'https://murmuring-harbor-78048.herokuapp.com/api';
 
 export function getCategories() {
   return dispatch => {
