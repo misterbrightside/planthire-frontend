@@ -27,7 +27,7 @@ class FeatureTiles extends Component {
         />
         <Tile
           text={'Register Company'}
-          linkTo={'/companies/register'}
+          linkTo={'/portal/company/register'}
         />
       </div>
     );

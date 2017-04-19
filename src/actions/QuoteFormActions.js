@@ -1,7 +1,9 @@
 import { 
   getCategoryInfoAsync,
-  getLocationInfoAsync
+  getLocationInfoAsync,
+  postNewQuote
 } from './api';
+import { push } from 'react-router-redux';
 
 export const SELECT_DATES = 'SELECT_DATES';
 export const SET_CATEGORY_DATA = 'SET_CATEGORY_DATA';
@@ -172,7 +174,9 @@ function getNewQuoteFormPayload(state) {
 
 export function submitNewOrderRequest() {
   return (dispatch, getState) => {
+    //dispatch(loadingStateForFormSubmission());
     const newQuoteForm = getNewQuoteFormPayload(getState);
-    console.log(newQuoteForm);
+    postNewQuote(newQuoteForm)
+      .then(() => dispatch(push('/portal/user')));
   }
 }

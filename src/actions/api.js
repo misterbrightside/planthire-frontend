@@ -71,3 +71,13 @@ export function postNewCompany(company) {
   })
   .then(checkForErrorsOnCompanyPost);
 }
+
+export function postNewQuote(form) {
+  return fetch(`${API_BASE}/orders`, { 
+    method: 'post',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    body: JSON.stringify(form)
+  });
+}

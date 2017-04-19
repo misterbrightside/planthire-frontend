@@ -5,6 +5,7 @@ import {
   getServicesInfoAsync,
   postNewCompany
 } from './api';
+import { push } from 'react-router-redux';
 import { diffArray } from '../utils/array';
 
 export const COMPANY_REGISTRATION_COMPANY_NAME = 'COMPANY_REGISTRATION_COMPANY_NAME';
@@ -225,7 +226,7 @@ export function submitForm() {
     dispatch(setSubmittedNewCompany());
     const newCompanyPayload = getNewCompanyObject(getState);
     postNewCompany(newCompanyPayload)
-      .then(json => console.log(json))
+      .then(json => dispatch(push('/portal/company')))
       .catch(error => {
         dispatch({ type: error.message });
       });
