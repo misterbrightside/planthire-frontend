@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Ireland from './Ireland.svg';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import './FeatureTiles.css';
 
 const Tile = ({ text, image, linkTo }) => (
@@ -27,7 +27,7 @@ class FeatureTiles extends Component {
         />
         <Tile
           text={'Register Company'}
-          linkTo={'/company/register'}
+          linkTo={'/companies/register'}
         />
       </div>
     );

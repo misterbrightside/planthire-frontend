@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import HomePage from '../HomePage';
 import CompanyRegistration from '../CompanyRegistration';
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom';
+import { Router, Route, browserHistory } from 'react-router'
+
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router history={browserHistory}>
         <div>
-          <Route exact path={'/'} component={HomePage} />
-          <Route path={'/company/register'} component={CompanyRegistration} />
+          <Route path={'/'} component={HomePage} />
+          <Route path={'/companies/register'} component={CompanyRegistration} />
         </div>
       </Router>
     );
