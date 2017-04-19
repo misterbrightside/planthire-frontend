@@ -24,7 +24,7 @@ const getStore = () => {
       autoRehydrate()
     )
   );
-  persistStore(store, { whitelist: ['User' ]});
+  persistStore(store, { whitelist: ['User'] });
   return store;
 }
 
