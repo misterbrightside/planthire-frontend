@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Page from '../../components/Page';
 import QuoteForm from '../QuoteForm';
 import FeatureTiles from '../FeatureTiles';
 import UserTestimonals from '../UserTestimonals';
@@ -9,13 +8,13 @@ import FAQ from '../FAQ';
 class HomePage extends Component {
   render() {
     return (
-      <Page>
+      <div>
         <QuoteForm />
         <FeatureTiles />
         <UserTestimonals />
         <About />
         <FAQ />
-      </Page>
+      </div>
     );
   }
 }

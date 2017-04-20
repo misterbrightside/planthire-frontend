@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Page from '../../components/Page';
 import TextInput from '../../components/TextInput';
 import DropdownSelect from '../../components/DropdownSelect';
 import Steps from '../../components/StepWizard';
@@ -113,22 +112,20 @@ class CompanyRegistration extends Component {
   render() {
     const { stepOneValid, stepTwoValid, onFormSubmit, errorMessage, onDismissError } = this.props;
     return (
-      <Page>
-        <div className={'CompanyRegistration'}>
-          { errorMessage ? 
-            <StatusMessage
-              message={errorMessage}
-              type={'error'}
-              onDismiss={onDismissError}
-            /> : null }
-          <Steps
-            steps={this.getSteps()}
-            completedSteps={[stepOneValid, stepTwoValid]}
-            submitButtonText={'Submit Details'}
-            onClickSubmit={onFormSubmit}
-          />
-        </div>
-      </Page>
+      <div className={'CompanyRegistration'}>
+        { errorMessage ? 
+          <StatusMessage
+            message={errorMessage}
+            type={'error'}
+            onDismiss={onDismissError}
+          /> : null }
+        <Steps
+          steps={this.getSteps()}
+          completedSteps={[stepOneValid, stepTwoValid]}
+          submitButtonText={'Submit Details'}
+          onClickSubmit={onFormSubmit}
+        />
+      </div>
     );
   }
 }

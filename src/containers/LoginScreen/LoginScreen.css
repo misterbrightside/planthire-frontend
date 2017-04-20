@@ -1,0 +1,23 @@
+.LoginScreen {
+  background: grey;
+  padding-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoginScreen-loginButton {
+  margin-top: 5%;
+}
+
+.LoginForm-radio-group {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-bottom: 5%;
+}
+
+.LoginForm-radio-group > * {
+  margin: 0px 15px;
+}
