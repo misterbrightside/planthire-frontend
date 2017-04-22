@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserData } from '../../actions/UserActions';
 import './UserDashboard.css';
+import Orders from './Orders';
+import 'fixed-data-table/dist/fixed-data-table.css';
 
-const OrderRow = () => (<tr>other than ur egooo</tr>);
-
-const Orders = ({ orders }) => (
-  <table>
-  { orders.map(order => <OrderRow />) }
-  </table>
-);
-
-const OrderHistory = () => (
+const OrderHistory = ({ orders }) => (
   <div className={'Dashboard-Orders'}>
-    <h2>Order History</h2>
+    <Orders orders={orders} />
   </div>
 );
 
@@ -25,13 +19,26 @@ class UserDashboard extends Component {
   }
 
   render() {
+    const { orders } = this.props;
     return (
       <div>
-        <OrderHistory orders={[1, 2, 3]} />
+        <div className={'UserDashboard-Header'}>
+          <h2>Order History</h2>
+        </div>
+        {orders.length ? <OrderHistory orders={orders} /> : null}
+        <div>
+        </div>
       </div>
     );
   }
 }
+
+const mapPropsToState = state => {
+  const { orders } = state.UserDashboard;
+  return {
+    orders
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -39,4 +46,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(UserDashboard);
+export default connect(mapPropsToState, mapDispatchToProps)(UserDashboard);

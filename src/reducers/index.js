@@ -1,6 +1,7 @@
 import QuoteForm from './QuoteFormReducer';
 import CompanyRegistration from './CompanyRegistrationReducer';
 import User from './UserReducer';
+import UserDashboard from './UserDashboardReducer';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { autoRehydrate } from 'redux-persist';
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   QuoteForm,
   CompanyRegistration,
   User,
+  UserDashboard,
   routing: routerReducer
 });
 

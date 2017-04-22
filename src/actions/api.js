@@ -95,6 +95,5 @@ export function loginRequest(type, email, password) {
 
 export function getUser(userType, userId) {
   return fetch(`${API_BASE}/${userType}/${userId}`, { credentials: 'include' })
-    .then(res => res.json())
-    .then(json => console.log(json));
+    .then(res => res.json());
 }
