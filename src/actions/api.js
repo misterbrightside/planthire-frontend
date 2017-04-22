@@ -85,7 +85,7 @@ export function postNewQuote(form) {
 export function loginRequest(type, email, password) {
   return fetch(`${API_BASE}/sessions/${type}`, {
     method: 'post',
-    credentials: "include",
+    credentials: 'include',
     headers: new Headers({
       'Content-Type': 'application/json'
     }),
@@ -93,3 +93,8 @@ export function loginRequest(type, email, password) {
   }).then(res => res.json());
 }
 
+export function getUser(userType, userId) {
+  return fetch(`${API_BASE}/${userType}/${userId}`, { credentials: 'include' })
+    .then(res => res.json())
+    .then(json => console.log(json));
+}

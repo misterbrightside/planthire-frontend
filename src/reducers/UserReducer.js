@@ -28,20 +28,30 @@ function userType(state = 'VISITOR', action) {
   }
 }
 
-function userID(state = '', action) {
+function user(state = '', action) {
   switch(action.type) {
     case USER_ACTIONS_SET_DETAILS:
-      return action.userID;
+      return action.user;
     default:
       return state;
   }
 }
 
-const user = combineReducers({
-  userID,
+function userID(state = -1, action) {
+  switch(action.type) {
+    case USER_ACTIONS_SET_DETAILS:
+      return action.user.id;
+    default:
+      return state;
+  }
+}
+
+const User = combineReducers({
+  user,
   userType,
+  userID,
   loggedIn,
   sessionID
 });
 
-export default user;
+export default User;

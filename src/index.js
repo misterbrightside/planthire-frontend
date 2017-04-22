@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
@@ -11,8 +10,9 @@ const store = getStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App history={history} />
-  </Provider>,
+  <App 
+    history={history}
+    store={store}
+  />,
   document.getElementById('root')
 );

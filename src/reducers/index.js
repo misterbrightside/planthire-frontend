@@ -3,7 +3,7 @@ import CompanyRegistration from './CompanyRegistrationReducer';
 import User from './UserReducer';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import { persistStore, autoRehydrate } from 'redux-persist';
+import { autoRehydrate } from 'redux-persist';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 
@@ -24,7 +24,6 @@ const getStore = () => {
       autoRehydrate()
     )
   );
-  persistStore(store, { whitelist: ['User'] });
   return store;
 }
 

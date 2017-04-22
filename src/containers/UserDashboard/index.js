@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getUserData } from '../../actions/UserActions';
 import './UserDashboard.css';
 
 const OrderRow = () => (<tr>other than ur egooo</tr>);
@@ -16,6 +18,12 @@ const OrderHistory = () => (
 );
 
 class UserDashboard extends Component {
+
+  componentDidMount() {
+    const { getUserData } = this.props;
+    getUserData();
+  }
+
   render() {
     return (
       <div>
@@ -25,4 +33,10 @@ class UserDashboard extends Component {
   }
 }
 
-export default UserDashboard;
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserData: () => dispatch(getUserData())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(UserDashboard);
