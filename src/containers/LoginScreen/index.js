@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import TextInput from '../../components/TextInput';
 import RadioButton from '../../components/RadioButton';
 import Button from '../../components/Button';
+import { connect } from 'react-redux';
+import {
+  login
+} from '../../actions/UserActions';
 import './LoginScreen.css';
 
 class LoginScreen extends Component {
@@ -52,7 +56,12 @@ class LoginScreen extends Component {
       </div>
     );
   }
- 
+
+  onClickSubmit = event => {
+    const { onLoginAttempt } = this.props;
+    const { email, password, userType } = this.state;
+    onLoginAttempt(email, password, userType);
+  }
  
   render() {
     const { email, password } = this.state;
@@ -76,6 +85,7 @@ class LoginScreen extends Component {
             buttonText={'Login'}
             size={'small'}
             direction={'right'}
+            onClickButton={this.onClickSubmit}
           />
         </div>
       </div>
@@ -83,4 +93,10 @@ class LoginScreen extends Component {
   }
 }
 
-export default LoginScreen;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoginAttempt: (email, password, userType) => dispatch(login(email, password, userType))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(LoginScreen);

@@ -81,3 +81,15 @@ export function postNewQuote(form) {
     body: JSON.stringify(form)
   });
 }
+
+export function loginRequest(type, email, password) {
+  return fetch(`${API_BASE}/sessions/${type}`, {
+    method: 'post',
+    credentials: "include",
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    body: JSON.stringify({ email, password })
+  }).then(res => res.json());
+}
+
