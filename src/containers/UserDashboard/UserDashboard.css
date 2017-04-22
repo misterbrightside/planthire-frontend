@@ -1,6 +1,8 @@
 .Dashboard-Orders {
   overflow: scroll;
   display: block;
+  padding: 5px;
+  margin-bottom: 5%;
 }
 
 .UserDashboard-Header {

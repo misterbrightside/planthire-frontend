@@ -84,13 +84,10 @@
 
 @media only screen and (min-width: 700px) {
   .arrow-background {
-      background-image: url('./arrow.svg');
       width: 50%;
       position: absolute;
       left: 60%;
       height: 50%;
-      z-index: -200;
-      transform: rotate(120deg);
       background-size: 25%;
     }
 

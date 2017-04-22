@@ -97,3 +97,7 @@ export function getUser(userType, userId) {
   return fetch(`${API_BASE}/${userType}/${userId}`, { credentials: 'include' })
     .then(res => res.json());
 }
+
+export function getOrders(userId) {
+  return fetch(`${API_BASE}/companies/${userId}/orders`);
+}

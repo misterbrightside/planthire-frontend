@@ -3,6 +3,7 @@ import HomePage from '../HomePage';
 import Page from '../../components/Page';
 import CompanyRegistration from '../CompanyRegistration';
 import UserDashboard from '../UserDashboard';
+import CompanyDashboard from '../CompanyDashboard';
 import LoginScreen from '../LoginScreen';
 import { Router, Route, IndexRoute } from 'react-router';
 import { persistStore } from 'redux-persist';
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path={'/portal/login'} component={LoginScreen} />
             <Route path={'/company/register'} component={CompanyRegistration} />
             <Route path={'/portal/user'} component={UserDashboard} />
+            <Route path={'/portal/company'} component={CompanyDashboard} />
           </Route>
         </Router>
       </Provider>

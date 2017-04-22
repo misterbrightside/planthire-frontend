@@ -1,4 +1,4 @@
-import { loginRequest, getUser } from './api';
+import { loginRequest, getUser, getOrders } from './api';
 import { push } from 'react-router-redux';
 
 export const USER_ACTIONS_SET_DETAILS = 'USER_ACTIONS_SET_DETAILS';
@@ -21,7 +21,10 @@ export function setOrderData(orders) {
 export function login(email, password, userType) {
   return dispatch => {
     return loginRequest(userType, email, password)
-      .then(json => dispatch(setDetails(userType, json.user.user, json.sessionID)))
+      .then(json => {
+        const user = json.user.user || json.user.company;
+        dispatch(setDetails(userType, user, json.sessionID))
+      })
       .then(() => dispatch(push(`/portal/${userType}`)))
       .catch(err => console.log(err));
   };
@@ -29,11 +32,25 @@ export function login(email, password, userType) {
 
 export function getUserData() {
   return (dispatch, getState) => {
-    const state = getState().User;
-    const { userID } = state;
+    const { userID } = getState().User;
     getUser('users', userID)
       .then(user => {
         dispatch(setOrderData(user.orders));
       })
+  };
+}
+
+export function getCompanyData() {
+  return (dispatch, getState) => {
+    const { userID } = getState().User;
+    getUser('companies', userID)
+      .then(company => console.log(company));
+  };
+}
+
+export function getOpenOrders() {
+  return (dispatch, getState) => {
+    const { userID } = getState().User;
+    getOrders(userID);
   };
 }
